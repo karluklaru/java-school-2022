@@ -6,14 +6,19 @@ public class Task2 {
 
     public static void printBytes(double bytes) {
         String[] units = {"B", "KB", "MB", "GB", "TB"};
+        System.out.println(bytes);
         for (String unit : units) {
+            System.out.println(bytes);
             if (bytes < 1024) {
                 System.out.println(String.format("%.1f", bytes) + " " + unit);
+                bytes = 0;
                 break;
             }
             bytes /= 1024;
         }
-        System.out.println("Давай число поменьше");
+        if (bytes != 0) {
+            System.out.println("Давай число поменьше");
+        }
     }
 
     public static void main(String[] args) {
