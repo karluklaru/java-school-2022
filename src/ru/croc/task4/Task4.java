@@ -1,10 +1,10 @@
 package ru.croc.task4;
 
-
+//[^/]
 public class Task4 {
 
     public static void formatString(String str) {
-        str = str.replaceAll("(/\\*)+(\\n)?.*(\\n)?[^/]*\\*/", "");
+        str = str.replaceAll("(/\\*)+(\\n)?.*?(\\n)?.*?(\\*/)", "");
         str = str.replaceAll("//.*", "");
         while (str.charAt(0) == '\n') {
             str = str.substring(1);
@@ -19,7 +19,7 @@ public class Task4 {
         String source = """
                 /*/*
                                 * My first ever /* program in Java!
-                               )*/
+                               /*/
                         class Hello { // class body starts here
                                 
                             /*// main method */
