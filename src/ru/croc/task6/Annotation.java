@@ -1,7 +1,7 @@
 package ru.croc.task6;
 
 public class Annotation {
-    private Figure figure;
+    private final Figure figure;
     String description;
 
     public Annotation(double x0, double y0, double x1, double y1, String description) {
@@ -16,16 +16,7 @@ public class Annotation {
 
     @Override
     public String toString() {
-        if (figure instanceof Rectangle) {
-            return "R (" + ((Rectangle) figure).getX0() + ", " + ((Rectangle) figure).getY0() + "), "
-                    + "(" + ((Rectangle) figure).getX1() + ", " + ((Rectangle) figure).getY1() + "): "
-                    + description;
-        }
-        else if (figure instanceof Circle) {
-            return "R (" + ((Circle) figure).getX0() + ", " + ((Circle) figure).getY0() + "), "
-                    + ((Circle) figure).getRadius() + ": " + description;
-        }
-        return super.toString();
+        return figure + ": " + description;
     }
 
     public Figure getFigure() {

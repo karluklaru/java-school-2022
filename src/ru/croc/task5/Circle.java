@@ -9,19 +9,6 @@ public class Circle extends Figure {
         this.y0 = y0;
         this.radius = radius;
     }
-
-    public double getX0() {
-        return x0;
-    }
-
-    public double getY0() {
-        return y0;
-    }
-
-    public double getRadius() {
-        return radius;
-    }
-
     @Override
     public String toString() {
         return "C (" + x0 + ", " + y0 + "), " + radius;

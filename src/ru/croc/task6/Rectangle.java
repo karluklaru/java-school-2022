@@ -1,6 +1,6 @@
 package ru.croc.task6;
 
-public class Rectangle extends Figure implements Movable{
+public class Rectangle extends Figure {
     private double x0, y0;
     private double x1, y1;
 
@@ -12,31 +12,21 @@ public class Rectangle extends Figure implements Movable{
         this.y1 = y1;
     }
 
+    @Override
     public boolean hasPoint(double x, double y) {
-        return (getX0() == x && getY0() == y) || (getX1() == x && getY1() == y);
+        return x >= x0 && x <= x1 && y >= y0 && y <= y1;
     }
 
     @Override
     public void move(int dx, int dy) {
-        x0 = x0 + dx;
-        y0 = y0 + dy;
-        x1 = x1 + dx;
-        y1 = y1 + dy;
+        x0 += dx;
+        y0 += dy;
+        x1 += dx;
+        y1 += dy;
     }
 
-    public double getX0() {
-        return x0;
-    }
-
-    public double getY0() {
-        return y0;
-    }
-
-    public double getX1() {
-        return x1;
-    }
-
-    public double getY1() {
-        return y1;
+    @Override
+    public String toString() {
+        return "R (" + x0 + ", " + y0 + "), " + "(" + x1 + ", " + y1 + ")";
     }
 }

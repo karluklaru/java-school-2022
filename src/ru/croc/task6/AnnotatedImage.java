@@ -12,18 +12,9 @@ public class AnnotatedImage {
 
     public Annotation findByPoint(int x, int y) {
         for (Annotation annotation : annotations) {
-            if (annotation.getFigure() instanceof Rectangle) {
-                Rectangle rectangle = (Rectangle) annotation.getFigure();
-                if (rectangle.hasPoint(x, y)) {
+                if (annotation.getFigure().hasPoint(x, y)) {
                     return annotation;
                 }
-            }
-            if (annotation.getFigure() instanceof Circle) {
-                Circle circle = (Circle) annotation.getFigure();
-                if (circle.hasPoint(x, y)) {
-                    return annotation;
-                }
-            }
         }
         return null;
     }
