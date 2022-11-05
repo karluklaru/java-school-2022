@@ -27,4 +27,9 @@ public class Rectangle extends Figure {
     public double getY1() {
         return y1;
     }
+
+    @Override
+    public String toString() {
+        return "R (" + x0 + ", " + y0 + "), " + "(" + x1 + ", " + y1 + ")";
+    }
 }
