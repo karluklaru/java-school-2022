@@ -28,6 +28,7 @@ public class Main {
             }
         } catch (IOException e) {
             System.out.println("Файла с таким именем не существует!");
+            System.exit(0);
         }
 
         System.out.println(countOfWords);
