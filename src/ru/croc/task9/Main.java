@@ -10,18 +10,20 @@ public class Main {
         List<String> folders = createArrayOfFolders(originalPath);
 
         int i = 0;
+        if (Objects.equals(folders.get(0), "..")) ++i;
         while (true) {
             if (Objects.equals(folders.get(i), ".")) {
                 folders.remove(i);
             }
-            if (Objects.equals(folders.get(i), "..")) {
-                if (i > 0) {
+            else if (Objects.equals(folders.get(i), "..")) {
+                if (i > 0 && !Objects.equals(folders.get(i - 1), "..")) {
                     folders.remove(i);
                     folders.remove(i - 1);
                     --i;
                 }
                 else break;
             }
+            else if (i == folders.size() - 1) break;
             else ++i;
         }
 
@@ -38,7 +40,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        String path = "КРОК/работа/src/./../../универ/../../../мемы/котики";
+        String path = "../КРОК/работа/src/./../../универ/мемы/котики";
         String normalizePath = toNormalizePath(path);
         System.out.println(normalizePath);
     }
