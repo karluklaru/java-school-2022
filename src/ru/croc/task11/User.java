@@ -3,8 +3,8 @@ package ru.croc.task11;
 import java.time.LocalDateTime;
 
 public class User extends Thread {
-    private String userName;
-    private Lot lot;
+    private final String userName;
+    private final Lot lot;
 
     public User(String userName, Lot lot) {
         this.userName = userName;
