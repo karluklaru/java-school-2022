@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Callable;
 
-public class Password implements Callable {
+public class PasswordHash implements Callable {
     private static final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
     private static final char[] ENGLISH_LETTERS = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     private final int passSize;
@@ -12,7 +12,7 @@ public class Password implements Callable {
     private final int[] startCombination;
     private final int[] endCombination;
 
-    public Password(String passwordHash, int passSize, double startDecimal, double endDecimal) {
+    public PasswordHash(String passwordHash, int passSize, double startDecimal, double endDecimal) {
         this.passwordHash = passwordHash;
         this.passSize = passSize;
         this.startCombination = TwentySixSystem.fromDec(startDecimal, passSize);

@@ -7,17 +7,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class MultithreadingBruteForce {
+public class Solution {
     private static final int passSize = 7;
 
-    public static String getPasswordFromHash(int countOfThreads, String passwordHash) throws ExecutionException, InterruptedException {
+    public static String calculatePassword(int countOfThreads, String passwordHash) throws ExecutionException, InterruptedException {
         String result = "";
         double[] points = createArrayOfThreadsPoints(countOfThreads);
         ExecutorService service = Executors.newFixedThreadPool(countOfThreads);
 
         List<Future<String>> tasks = new ArrayList<>();
         for (int i = 0; i < countOfThreads; i++) {
-            tasks.add(service.submit(new Password(passwordHash, passSize, points[i], points[i + 1])));
+            tasks.add(service.submit(new PasswordHash(passwordHash, passSize, points[i], points[i + 1])));
         }
         for (Future<String> task : tasks) {
             if (task.get() != null) {
@@ -37,10 +37,5 @@ public class MultithreadingBruteForce {
         }
         points[points.length - 1] = Math.pow(26, passSize);
         return points;
-    }
-
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        System.out.println(getPasswordFromHash(Integer.parseInt(args[0]), args[1]));
-     //   System.out.println(getPasswordFromHash(4, "F2CEEA1536AC1B8FED1A167A9C8BF04D")); //here is passSize = 4
     }
 }
