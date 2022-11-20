@@ -23,9 +23,10 @@ public class PasswordHash implements Callable {
     @Override
     public String call() {
         long[] combination = startCombination;
-       // System.out.println(Arrays.toString(endCombination));
+        System.out.println(Arrays.toString(combination));
+        System.out.println(Arrays.toString(endCombination));
         StringBuilder variant;
-        outer: while(true) {
+        outer: while(!Thread.currentThread().isInterrupted()) {
             variant = new StringBuilder();
             for (long one : combination) {
                 variant.append(ENGLISH_LETTERS[(int) one]);
@@ -48,7 +49,7 @@ public class PasswordHash implements Callable {
         return null;
     }
 
-    private static String hashPassword(String password) {
+    public static String hashPassword(String password) {
         MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("MD5");

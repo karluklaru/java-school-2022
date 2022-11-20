@@ -22,11 +22,14 @@ public class Solution {
         }
         for (Future<String> task : tasks) {
             if (task.get() != null) {
-                service.shutdownNow();
                 result = task.get();
+                for (Future<String> t : tasks) {
+                    t.cancel(true);
+                }
                 break;
             }
         }
+
         service.shutdown();
         return result;
     }
@@ -38,5 +41,9 @@ public class Solution {
         }
         points[points.length - 1] = (long) (Math.pow(26, passSize) - 1);
         return points;
+    }
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        String result = calculatePassword(4, "296E2138307668E7FAA75E97889308F7");
+        System.out.println(result);
     }
 }
