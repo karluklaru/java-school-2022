@@ -4,30 +4,29 @@ import java.time.LocalDateTime;
 
 
 public class Lot {
-    private double currentRate;
-    private String userName;
+    private volatile double currentRate;
+    private volatile String userName;
     private final LocalDateTime auctionEnd;
-    private final Object lock = new Object();
 
-    public Lot(double currentRate, String userName, LocalDateTime auctionEnd) {
+    public Lot(double currentRate, LocalDateTime auctionEnd) {
         this.currentRate = currentRate;
-        this.userName = userName;
         this.auctionEnd = auctionEnd;
     }
 
-    public boolean updateRate(String name, double rate) {
-        synchronized(lock) {
+    public synchronized boolean updateRate(String name, double rate) {
         if (LocalDateTime.now().compareTo(auctionEnd) < 0 && rate > currentRate) {
             currentRate = rate;
             userName = name;
             return true;
         }
         return false;
-        }
     }
 
-    public String getUserName() {
-        return userName;
+    public String getWinner() {
+        if (LocalDateTime.now().compareTo(auctionEnd) > 0) {
+            return userName;
+        }
+        return null;
     }
 
     public LocalDateTime getAuctionEnd() {
