@@ -1,15 +1,15 @@
 package ru.croc.task10;
 
 public class TwentySixSystem {
-    public static int[] fromDec(double decimal, int lenOfNum) {
-        int[] number = new int[lenOfNum];
-        int mod;
+    public static long[] fromDec(long decimal, int lenOfNum) {
+        long[] number = new long[lenOfNum];
+        long mod;
         int i = lenOfNum - 1;
-        while (decimal > 26) {
-            mod = (int) (decimal % 26);
+        while (decimal > 0) {
+            mod = decimal % 26;
             number[i] = mod;
-            --i;
             decimal /= 26;
+            --i;
         }
         return number;
     }

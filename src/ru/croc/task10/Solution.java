@@ -1,6 +1,7 @@
 package ru.croc.task10;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -12,7 +13,7 @@ public class Solution {
 
     public static String calculatePassword(int countOfThreads, String passwordHash) throws ExecutionException, InterruptedException {
         String result = "";
-        double[] points = createArrayOfThreadsPoints(countOfThreads);
+        long[] points = createArrayOfThreadsPoints(countOfThreads);
         ExecutorService service = Executors.newFixedThreadPool(countOfThreads);
 
         List<Future<String>> tasks = new ArrayList<>();
@@ -29,13 +30,13 @@ public class Solution {
         service.shutdown();
         return result;
     }
-    public static double[] createArrayOfThreadsPoints(int countOfThreads) {
-        double[] points = new double[countOfThreads + 1];
-        int interval = (int) (Math.pow(26, passSize) / countOfThreads);
+    public static long[] createArrayOfThreadsPoints(int countOfThreads) {
+        long[] points = new long[countOfThreads + 1];
+        long interval = (long) (Math.pow(26, passSize) / countOfThreads);
         for (int i = 1; i < points.length - 1; ++i) {
-            points[i] = (double) i*interval;
+            points[i] = i*interval;
         }
-        points[points.length - 1] = Math.pow(26, passSize);
+        points[points.length - 1] = (long) (Math.pow(26, passSize) - 1);
         return points;
     }
 }

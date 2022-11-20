@@ -2,6 +2,7 @@ package ru.croc.task10;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 public class PasswordHash implements Callable {
@@ -9,10 +10,10 @@ public class PasswordHash implements Callable {
     private static final char[] ENGLISH_LETTERS = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     private final int passSize;
     private final String passwordHash;
-    private final int[] startCombination;
-    private final int[] endCombination;
+    private final long[] startCombination;
+    private final long[] endCombination;
 
-    public PasswordHash(String passwordHash, int passSize, double startDecimal, double endDecimal) {
+    public PasswordHash(String passwordHash, int passSize, long startDecimal, long endDecimal) {
         this.passwordHash = passwordHash;
         this.passSize = passSize;
         this.startCombination = TwentySixSystem.fromDec(startDecimal, passSize);
@@ -21,12 +22,13 @@ public class PasswordHash implements Callable {
 
     @Override
     public String call() {
-        int[] combination = startCombination;
+        long[] combination = startCombination;
+       // System.out.println(Arrays.toString(endCombination));
         StringBuilder variant;
         outer: while(true) {
             variant = new StringBuilder();
-            for (int one : combination) {
-                variant.append(ENGLISH_LETTERS[one]);
+            for (long one : combination) {
+                variant.append(ENGLISH_LETTERS[(int) one]);
             }
             if (passwordHash.equals(hashPassword(variant.toString()))) {
                 return variant.toString();
