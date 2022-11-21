@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
 
-public class PasswordHash implements Callable {
+public class PasswordHash implements Callable<String> {
     private static final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
     private static final char[] ENGLISH_LETTERS = "abcdefghijklmnopqrstuvwxyz".toCharArray();
     private final int passSize;
@@ -34,7 +34,7 @@ public class PasswordHash implements Callable {
             if (passwordHash.equals(hashPassword(variant.toString()))) {
                 return variant.toString();
             }
-            if (combination == endCombination) {
+            if (equalToEnd(combination)) {
                 break;
             }
 
@@ -47,6 +47,14 @@ public class PasswordHash implements Callable {
             combination[i]++;
         }
         return null;
+    }
+
+    private boolean equalToEnd(long[] combination) {
+        for (int i = 0; i < combination.length; ++i) {
+            if (combination[i] != endCombination[i])
+                return false;
+        }
+        return true;
     }
 
     public static String hashPassword(String password) {
