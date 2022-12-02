@@ -60,8 +60,7 @@ public class RecommendAlgorithm {
      */
     private Integer mostPopularFilm(Set<Integer> films) {
         Map<Integer, Integer> filmFrequency = getFilmFrequency(films);
-        int max = Collections.max(filmFrequency.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
-        return max;
+        return Collections.max(filmFrequency.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
     }
 
     /**
