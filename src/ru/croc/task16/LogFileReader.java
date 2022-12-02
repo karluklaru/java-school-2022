@@ -18,8 +18,12 @@ public class LogFileReader {
     public String readLine() throws IOException {
         line = bufferedReader.readLine();
         if (line == null) return null;
-        time = Integer.parseInt(line.split(" ")[0]);
+        time = Long.parseLong(line.split(" ")[0]);
         return line;
+    }
+
+    public BufferedReader getBufferedReader() {
+        return bufferedReader;
     }
 
     public long getTime() {
