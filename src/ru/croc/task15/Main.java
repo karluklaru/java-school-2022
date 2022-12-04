@@ -12,22 +12,17 @@ public class Main {
 
     public static int maxTime(List<String[]> nodes) {
         int max = 0;
-        while (nodes.size() != 0) {
-            Iterator<String[]> it = nodes.iterator();
+        while (nodes.size() != departments.size()) {
 
-            while (it.hasNext()) {
-                String[] current = it.next();
+            for (String[] current : nodes) {
                 if (current[1].equals("-")) {
                     int time = Integer.parseInt(current[2]);
                     if (time > max) max = time;
                     departments.put(current[0], time);
-                    it.remove();
-                }
-                else if (departments.containsKey(current[1])) {
+                } else if (departments.containsKey(current[1])) {
                     int time = departments.get(current[1]) + Integer.parseInt(current[2]);
                     if (time > max) max = time;
                     departments.put(current[0], time);
-                    it.remove();
                 }
             }
 
