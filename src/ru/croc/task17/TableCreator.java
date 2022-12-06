@@ -14,16 +14,13 @@ public class TableCreator {
     static final String USER = "sa";
     static final String PASS = "sa";
 
-    public static void createTables(Set<Product> products, List<OrderPosition> orderPositions) {
-        Connection connection = null;
-        Statement statement = null;
-        try {
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,USER,PASS);
+    public static void createTables(Set<Product> products, List<OrderPosition> orderPositions) throws SQLException, ClassNotFoundException {
+        Class.forName(JDBC_DRIVER);
+        Connection connection = DriverManager.getConnection(DB_URL,USER,PASS);
+        try (Statement statement = connection.createStatement()) {
+            String sql;
 
-            statement = connection.createStatement();
-
-            String sql = "DROP TABLE IF EXISTS ORDER_POSITION";
+            sql = "DROP TABLE IF EXISTS ORDER_POSITION";
             statement.executeUpdate(sql);
             sql = "DROP TABLE IF EXISTS PRODUCT;";
             statement.executeUpdate(sql);
@@ -35,11 +32,10 @@ public class TableCreator {
                     " PRIMARY KEY ( ID ))";
             statement.executeUpdate(sql);
 
-            sql = "CREATE TABLE IF NOT EXISTS ORDER_POSITION " +
-                    " (ID INTEGER not NULL PRIMARY KEY AUTO_INCREMENT, " +
-                    " NUM INTEGER not NULL, " +
+            sql = "CREATE TABLE IF NOT EXISTS ORDER_POSITION ( " +
+                    " NUM INTEGER not NULL PRIMARY KEY AUTO_INCREMENT, " +
                     " LOGIN VARCHAR(255) not NULL, " +
-                    " PRODUCT_ID VARCHAR(255) not NULL REFERENCES PRODUCT(ID) " +
+                    " PRODUCT_ID VARCHAR(255) not NULL " +
                     " )";
             statement.executeUpdate(sql);
 
@@ -48,32 +44,12 @@ public class TableCreator {
                 statement.executeUpdate(sql);
             }
 
-            int i = 0;
             for (OrderPosition op : orderPositions) {
                 sql = "INSERT INTO ORDER_POSITION " + " VALUES( "
-                        + i + ", "
-                        + op.number() + " ,'"
-                        + op.login() + "', '"
-                        + op.product() + "' ) ";
-                ++i;
+                        + op.getNumber() + " ,'"
+                        + op.getLogin() + "', '"
+                        + String.join(" ", op.getProducts()) + "' ) ";
                 statement.executeUpdate(sql);
-            }
-
-            statement.close();
-            connection.close();
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                if (statement != null) statement.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-            try {
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
             }
         }
     }
