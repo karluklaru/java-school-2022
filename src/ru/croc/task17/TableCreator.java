@@ -25,17 +25,17 @@ public class TableCreator {
             sql = "DROP TABLE IF EXISTS PRODUCT;";
             statement.executeUpdate(sql);
 
-            sql =  "CREATE TABLE IF NOT EXISTS PRODUCT " +
+            sql = "CREATE TABLE IF NOT EXISTS PRODUCT " +
                     "(ID VARCHAR(255) not NULL, " +
                     " NAME VARCHAR(255) not NULL, " +
                     " PRICE INTEGER not NULL, " +
                     " PRIMARY KEY ( ID ))";
             statement.executeUpdate(sql);
 
-            sql = "CREATE TABLE IF NOT EXISTS ORDER_POSITION ( " +
-                    " NUM INTEGER not NULL PRIMARY KEY AUTO_INCREMENT, " +
+            sql = "CREATE TABLE IF NOT EXISTS ORDER_POSITION " +
+                    " (NUM INTEGER not NULL, " +
                     " LOGIN VARCHAR(255) not NULL, " +
-                    " PRODUCT_ID VARCHAR(255) not NULL " +
+                    " PRODUCT_ID VARCHAR(255) not NULL REFERENCES PRODUCT(ID) " +
                     " )";
             statement.executeUpdate(sql);
 
@@ -46,9 +46,9 @@ public class TableCreator {
 
             for (OrderPosition op : orderPositions) {
                 sql = "INSERT INTO ORDER_POSITION " + " VALUES( "
-                        + op.getNumber() + " ,'"
-                        + op.getLogin() + "', '"
-                        + String.join(" ", op.getProducts()) + "' ) ";
+                        + op.number() + " ,'"
+                        + op.login() + "', '"
+                        + op.product() + "' ) ";
                 statement.executeUpdate(sql);
             }
         }

@@ -9,11 +9,6 @@ import java.util.Set;
 
 public class CSVParcer {
 
-    /**
-     *
-     * @param pathToCSV пусть до csv файла
-     * @return список объектов типа Product, представляющего данные для таблицы PRODUCT
-     */
     public static Set<Product> createProductList(String pathToCSV) throws IOException {
         Set<Product> productEntries = new HashSet<>();
 
@@ -29,11 +24,6 @@ public class CSVParcer {
         }
     }
 
-    /**
-     *
-     * @param pathToCSV пусть до csv файла
-     * @return список объектов типа OrderPosition, представляющего данные для таблицы ORDER_POSITION
-     */
     public static List<OrderPosition> createOrdersList(String pathToCSV) throws IOException {
         List<OrderPosition> orderEntries = new ArrayList<>();
 
@@ -43,15 +33,10 @@ public class CSVParcer {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split(",");
-                if (OrderPosition.containsOrder(orderEntries, values[0]) >= 0) {
-                    int i = OrderPosition.containsOrder(orderEntries, values[0]);
-                    orderEntries.get(i).addProduct(values[2]);
-                }
-                else {
-                    orderEntries.add(new OrderPosition(values[0], values[1], values[2]));
-                }
+                orderEntries.add(new OrderPosition(values[0], values[1], values[2]));
             }
         }
+
         return orderEntries;
     }
 }
