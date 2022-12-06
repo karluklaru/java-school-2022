@@ -16,13 +16,13 @@ public class Department {
     }
 
     public static int contains(List<Department> departments, String name) {
-        int i = -1;
+        int i = 0;
         for (Department department : departments) {
-            ++i;
             if (department.name.equals(name)) {
                 return i;
             }
+            ++i;
         }
-        return i;
+        return -1;
     }
 }
