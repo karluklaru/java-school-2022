@@ -38,15 +38,6 @@ public class OrderPosition {
         return products;
     }
 
-    @Override
-    public String toString() {
-        return "OrderPosition{" +
-                "number='" + number + '\'' +
-                ", login='" + login + '\'' +
-                ", products=" + products +
-                '}';
-    }
-
     public void addProduct(String product) {
         products.add(product);
     }
