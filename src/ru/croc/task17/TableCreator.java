@@ -20,11 +20,6 @@ public class TableCreator {
         try (Statement statement = connection.createStatement()) {
             String sql;
 
-            sql = "DROP TABLE IF EXISTS ORDER_POSITION";
-            statement.executeUpdate(sql);
-            sql = "DROP TABLE IF EXISTS PRODUCT;";
-            statement.executeUpdate(sql);
-
             sql = "CREATE TABLE IF NOT EXISTS PRODUCT " +
                     "(ID VARCHAR(255) not NULL, " +
                     " NAME VARCHAR(255) not NULL, " +
