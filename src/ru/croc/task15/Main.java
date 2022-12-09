@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Main {
-    static List<Department> departments = new ArrayList<>();
+    static HashMap<String, Department> departments = new HashMap<>();
 
     public static int maxTime(List<String[]> nodes) {
         int max = 0;
@@ -18,12 +18,12 @@ public class Main {
                 if (current[1].equals("-")) {
                     int time = Integer.parseInt(current[2]);
                     if (time > max) max = time;
-                    departments.add(new Department(current[0], time));
-                } else if (Department.contains(departments, current[1]) >= 0) {
-                        int i = Department.contains(departments, current[1]);
-                        int time = departments.get(i).getProcessTime() + Integer.parseInt(current[2]);
+                    departments.put(current[0], new Department(current[0], time));
+                } else if (departments.containsKey(current[1])) {
+
+                        int time = departments.get(current[1]).getProcessTime() + Integer.parseInt(current[2]);
                         if (time > max) max = time;
-                        departments.add(new Department(current[0], time));
+                        departments.put(current[0], new Department(current[0], time));
                 }
             }
         }
